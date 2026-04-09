@@ -33,9 +33,9 @@ export default function App() {
         <Projects />
         <Skills />
         <Testimonials />
-        <Pricing />
+        {/* <Pricing /> */}
         <Contact />
-        <Blog />
+        {/* <Blog /> */}
       </main>
       <Footer />
     </div>

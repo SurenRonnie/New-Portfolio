@@ -7,7 +7,7 @@ export const Footer = () => {
   return (
     <footer className="py-20 bg-black border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-12 mb-20">
+        {/* <div className="flex flex-col md:flex-row justify-between items-center gap-12 mb-20">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-[#BFFF0B] rounded-full flex items-center justify-center">
               <div className="w-5 h-5 bg-black rounded-full" />
@@ -30,7 +30,7 @@ export const Footer = () => {
           >
             <ArrowUp className="w-6 h-6" />
           </motion.button>
-        </div>
+        </div> */}
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-10 border-t border-white/5 text-white/40 text-sm font-medium">
           <div>Copyright @2023, <span className="text-[#BFFF0B]">Noxfolio</span> All Rights Reserved</div>

@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
-
+import logo from '../assets/logo.png';
 const navLinks = [
   { name: 'Home', href: '#home' },
   { name: 'About', href: '#about' },
@@ -23,18 +23,19 @@ export const Navbar = () => {
 
   return (
     <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-black/80 backdrop-blur-md py-4 border-b border-white/10' : 'bg-transparent py-6'}`}>
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <motion.a 
+      <div className="max-w-7xl mx-auto px-6 flex justify-center items-center">
+        {/* <motion.a 
           href="#home"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           className="flex items-center gap-2"
         >
-          <div className="w-8 h-8 bg-[#BFFF0B] rounded-full flex items-center justify-center">
-            <div className="w-4 h-4 bg-black rounded-full" />
-          </div>
-          <span className="text-2xl font-bold tracking-tighter text-white">Noxfolio</span>
-        </motion.a>
+          <img 
+        src={logo}   // 👉 change this path based on your folder
+        alt="G Surendar"
+        className="h-10 w-auto object-contain"
+      />
+        </motion.a> */}
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-8">
