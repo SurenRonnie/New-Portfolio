@@ -56,7 +56,12 @@ export const About = () => {
               </div>
               <div>
                 <div className="text-xs text-white/40 uppercase tracking-widest">Email Us</div>
-                <div className="text-white font-medium">gsurendar23@gmail.com</div>
+               <a 
+  href="mailto:gsurendar23@gmail.com" 
+  className="text-white font-medium hover:text-[#BFFF0B] transition-colors"
+>
+  gsurendar23@gmail.com
+</a>
               </div>
             </div>
             <div className="flex items-center gap-4 bg-white/5 border border-white/10 p-4 rounded-2xl">

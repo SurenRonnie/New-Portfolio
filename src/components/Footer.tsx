@@ -33,7 +33,7 @@ export const Footer = () => {
         </div> */}
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-10 border-t border-white/5 text-white/40 text-sm font-medium">
-          <div>Copyright @2023, <span className="text-[#BFFF0B]">Noxfolio</span> All Rights Reserved</div>
+          <div>Copyright @2026, <span className="text-[#BFFF0B]"></span> All Rights Reserved</div>
           <div className="flex gap-8">
             <a href="#" className="hover:text-white transition-colors">Facebook</a>
             <a href="#" className="hover:text-white transition-colors">Twitter</a>

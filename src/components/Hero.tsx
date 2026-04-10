@@ -8,6 +8,15 @@ export const Hero = () => {
   const y2 = useTransform(scrollY, [0, 500], [0, -150]);
   const sectionRef = useRef<HTMLDivElement>(null);
 
+  const handleDownloadResume = () => {
+    const link = document.createElement('a');
+    link.href = '/resume.pdf'; // Place your resume.pdf inside the /public folder
+    link.download = 'Surendar_G_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <section id="home" ref={sectionRef} className="relative min-h-screen flex items-center pt-20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
@@ -34,9 +43,12 @@ export const Hero = () => {
             >
               Hire Me <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </motion.button>
-            <a href="#" className="text-white font-medium border-b border-white/20 pb-1 hover:border-[#BFFF0B] transition-colors flex items-center gap-2">
+            <button
+              onClick={handleDownloadResume}
+              className="text-white font-medium border-b border-white/20 pb-1 hover:border-[#BFFF0B] transition-colors flex items-center gap-2 bg-transparent cursor-pointer"
+            >
               Download Resume <Download className="w-4 h-4" />
-            </a>
+            </button>
           </div>
         </motion.div>
 
