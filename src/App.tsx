@@ -18,6 +18,7 @@ import { Footer } from './components/Footer';
 import { ParallaxBackground } from './components/ParallaxBackground';
 
 import { TravelingImage } from './components/TravelingImage';
+import { PortfolioGallerySection } from './components/PortfolioGallerySection';
 
 export default function App() {
   return (
@@ -30,7 +31,8 @@ export default function App() {
         <About />
         <Experience />
         <Services />
-        <Projects />
+        {/* <Projects /> */}
+        <PortfolioGallerySection />
         <Skills />
         <Testimonials />
         {/* <Pricing /> */}
