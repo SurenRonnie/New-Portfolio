@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sed -i 's|<div className=\"grid grid-cols-1 md:grid-cols-2 gap-6\">|<div className=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-5 sm:gap-6\">|g' components/Contact.jsx)",
+      "Bash(sed -i 's|type=\"text\"\\\\n                    name=\"phone\"|X|' components/Contact.jsx)",
+      "Bash(npx playwright *)",
+      "Bash(npm init *)",
+      "Bash(npm i *)",
+      "Bash(node shot.mjs)",
+      "Bash(node shot2.mjs)",
+      "Bash(node diag.mjs)",
+      "Bash(kill %1)",
+      "Bash(pkill -f \"next dev -p 3111\")",
+      "Bash(pkill -9 -f \"next dev -p 3112\")",
+      "Bash(pkill -9 -f \"next-server\")"
+    ]
+  }
+}

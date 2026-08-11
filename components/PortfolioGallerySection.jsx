@@ -39,10 +39,10 @@ export function PortfolioGallerySection() {
   return (
     <section id="portfolio" className="w-full bg-[#0a0a0a] relative z-10">
       {/* Section Header */}
-      <div className="sticky top-0 z-20 w-full pt-20 pb-8 bg-[#0a0a0a]/90 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-6 text-center">
+      <div className="sticky top-0 z-20 w-full pt-20 sm:pt-24 pb-6 sm:pb-8 bg-[#0a0a0a]/90 backdrop-blur-sm">
+        <div className="shell text-center">
           <motion.span
-            className="text-sm font-semibold uppercase tracking-[0.35em] text-[#BFFF0B]"
+            className="text-[10px] sm:text-sm font-semibold uppercase tracking-[0.25em] sm:tracking-[0.35em] text-[#BFFF0B]"
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -50,7 +50,7 @@ export function PortfolioGallerySection() {
             Latest Work
           </motion.span>
           <motion.h2
-            className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white"
+            className="mt-2 sm:mt-3 text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

@@ -5,6 +5,13 @@ export const metadata = {
   description: "G Surendar is a frontend developer with expertise in React, Next.js, Astro.js, Vite.js, and modern web technologies. With a passion for creating engaging user experiences, G Surendar has a proven track record of delivering high-quality web applications. Explore G Surendar's portfolio to see examples of their work and learn more about their skills and experience.",
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#000000',
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">

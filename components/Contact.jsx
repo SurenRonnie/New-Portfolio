@@ -103,68 +103,68 @@ export const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-24 bg-[#0a0a0a]">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+    <section id="contact" className="py-16 sm:py-20 lg:py-24 bg-[#0a0a0a] relative z-10">
+      <div className="shell">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           <div>
-            <h2 className="text-[#BFFF0B] font-medium tracking-widest uppercase mb-4 text-sm">Get In Touch</h2>
-            <h3 className="text-4xl md:text-5xl font-bold text-white mb-8 tracking-tighter leading-tight">
-              Let's Talk For your <br />
+            <h2 className="text-[#BFFF0B] font-medium tracking-widest uppercase mb-3 sm:mb-4 text-xs sm:text-sm">Get In Touch</h2>
+            <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 sm:mb-8 tracking-tighter leading-tight">
+              Let&apos;s Talk For your <br className="hidden sm:block" />
               <span className="text-[#BFFF0B]">Next Projects</span>
             </h3>
 
-            <div className="space-y-8 mb-12">
-              <div className="flex items-center gap-6">
-                <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center">
-                  <MapPin className="w-6 h-6 text-[#BFFF0B]" />
+            <div className="space-y-6 sm:space-y-8 mb-10 sm:mb-12">
+              <div className="flex items-center gap-4 sm:gap-6">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white/5 rounded-2xl flex items-center justify-center shrink-0">
+                  <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-[#BFFF0B]" />
                 </div>
-                <div>
-                  <div className="text-xs text-white/40 uppercase tracking-widest">Location</div>
-                  <div className="text-white font-medium">Madurai, Tamil Nadu</div>
+                <div className="min-w-0">
+                  <div className="text-[10px] sm:text-xs text-white/40 uppercase tracking-widest">Location</div>
+                  <div className="text-white font-medium text-sm sm:text-base">Madurai, Tamil Nadu</div>
                 </div>
               </div>
-              <div className="flex items-center gap-6">
-                <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center">
-                  <Mail className="w-6 h-6 text-[#BFFF0B]" />
+              <div className="flex items-center gap-4 sm:gap-6">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white/5 rounded-2xl flex items-center justify-center shrink-0">
+                  <Mail className="w-5 h-5 sm:w-6 sm:h-6 text-[#BFFF0B]" />
                 </div>
-                <div>
-                  <div className="text-xs text-white/40 uppercase tracking-widest">Email Address</div>
-                  
-                  
-                  <a   href="mailto:gsurendar23@gmail.com"
-                    className="text-white font-medium hover:text-[#BFFF0B] transition-colors">
+                <div className="min-w-0">
+                  <div className="text-[10px] sm:text-xs text-white/40 uppercase tracking-widest">Email Address</div>
+                  <a
+                    href="mailto:gsurendar23@gmail.com"
+                    className="block text-white font-medium hover:text-[#BFFF0B] transition-colors text-sm sm:text-base truncate"
+                  >
                     gsurendar23@gmail.com
                   </a>
                 </div>
               </div>
-              <div className="flex items-center gap-6">
-                <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center">
-                  <Phone className="w-6 h-6 text-[#BFFF0B]" />
+              <div className="flex items-center gap-4 sm:gap-6">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white/5 rounded-2xl flex items-center justify-center shrink-0">
+                  <Phone className="w-5 h-5 sm:w-6 sm:h-6 text-[#BFFF0B]" />
                 </div>
-                <div>
-                  <div className="text-xs text-white/40 uppercase tracking-widest">Phone Number</div>
-                  
-                    
-                  <a href="tel:+919003633972"
-                    className="text-white font-medium hover:text-[#BFFF0B] transition-colors">
+                <div className="min-w-0">
+                  <div className="text-[10px] sm:text-xs text-white/40 uppercase tracking-widest">Phone Number</div>
+                  <a
+                    href="tel:+919003633972"
+                    className="block text-white font-medium hover:text-[#BFFF0B] transition-colors text-sm sm:text-base"
+                  >
                     +91 9003633972
                   </a>
                 </div>
               </div>
             </div>
 
-               <div className="flex gap-4">
+            <div className="flex flex-wrap gap-3 sm:gap-4">
               {[Facebook, Twitter, Instagram, Linkedin].map((Icon, i) => (
-                <a key={i} href={i === 3 ? "https://www.linkedin.com/in/surendar-g-a97741276" : "#"} className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-[#BFFF0B] hover:text-black transition-all">
+                <a key={i} href={i === 3 ? "https://www.linkedin.com/in/surendar-g-a97741276" : "#"} className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-[#BFFF0B] hover:text-black transition-all">
                   <Icon className="w-5 h-5" />
                 </a>
               ))}
             </div>
           </div>
 
-          <div className="bg-white/5 border border-white/10 p-10 rounded-[40px]">
+          <div className="bg-white/5 border border-white/10 p-5 sm:p-8 lg:p-10 rounded-3xl sm:rounded-[40px]">
             <form ref={formRef} className="space-y-6" noValidate>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-5 sm:gap-6">
                 <div className="space-y-2">
                   <label className="text-xs font-bold text-white/40 uppercase tracking-widest">Full Name</label>
                   <input
@@ -173,7 +173,7 @@ export const Contact = () => {
                     value={formData.fullName}
                     onChange={handleChange}
                     placeholder="Surendar G"
-                    className={`w-full bg-white/5 border rounded-2xl px-6 py-4 text-white focus:border-[#BFFF0B] outline-none transition-all ${
+                    className={`w-full bg-white/5 border rounded-2xl px-4 sm:px-6 py-3.5 sm:py-4 text-base text-white focus:border-[#BFFF0B] outline-none transition-all ${
                       errors.fullName ? 'border-red-500' : 'border-white/10'
                     }`}
                   />
@@ -187,7 +187,7 @@ export const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="gsurendar23@gmail.com"
-                    className={`w-full bg-white/5 border rounded-2xl px-6 py-4 text-white focus:border-[#BFFF0B] outline-none transition-all ${
+                    className={`w-full bg-white/5 border rounded-2xl px-4 sm:px-6 py-3.5 sm:py-4 text-base text-white focus:border-[#BFFF0B] outline-none transition-all ${
                       errors.email ? 'border-red-500' : 'border-white/10'
                     }`}
                   />
@@ -195,16 +195,18 @@ export const Contact = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-5 sm:gap-6">
                 <div className="space-y-2">
                   <label className="text-xs font-bold text-white/40 uppercase tracking-widest">Phone Number</label>
                   <input
-                    type="text"
+                    type="tel"
+                    inputMode="tel"
+                    autoComplete="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder="+91 9003633972"
-                    className={`w-full bg-white/5 border rounded-2xl px-6 py-4 text-white focus:border-[#BFFF0B] outline-none transition-all ${
+                    className={`w-full bg-white/5 border rounded-2xl px-4 sm:px-6 py-3.5 sm:py-4 text-base text-white focus:border-[#BFFF0B] outline-none transition-all ${
                       errors.phone ? 'border-red-500' : 'border-white/10'
                     }`}
                   />
@@ -218,7 +220,7 @@ export const Contact = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     placeholder="Project Inquiry"
-                    className={`w-full bg-white/5 border rounded-2xl px-6 py-4 text-white focus:border-[#BFFF0B] outline-none transition-all ${
+                    className={`w-full bg-white/5 border rounded-2xl px-4 sm:px-6 py-3.5 sm:py-4 text-base text-white focus:border-[#BFFF0B] outline-none transition-all ${
                       errors.subject ? 'border-red-500' : 'border-white/10'
                     }`}
                   />
@@ -234,7 +236,7 @@ export const Contact = () => {
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Write your message..."
-                  className={`w-full bg-white/5 border rounded-2xl px-6 py-4 text-white focus:border-[#BFFF0B] outline-none transition-all resize-none ${
+                  className={`w-full bg-white/5 border rounded-2xl px-4 sm:px-6 py-3.5 sm:py-4 text-base text-white focus:border-[#BFFF0B] outline-none transition-all resize-none ${
                     errors.message ? 'border-red-500' : 'border-white/10'
                   }`}
                 />
@@ -258,7 +260,7 @@ export const Contact = () => {
                 disabled={isSending}
                 whileHover={{ scale: isSending ? 1 : 1.02 }}
                 whileTap={{ scale: isSending ? 1 : 0.98 }}
-                className={`w-full py-5 rounded-full font-bold flex items-center justify-center gap-2 transition-all ${
+                className={`w-full py-4 sm:py-5 rounded-full font-bold flex items-center justify-center gap-2 transition-all text-sm sm:text-base ${
                   isSending
                     ? 'bg-[#BFFF0B]/50 text-black/50 cursor-not-allowed'
                     : 'bg-[#BFFF0B] text-black cursor-pointer'

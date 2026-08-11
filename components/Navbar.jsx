@@ -22,24 +22,24 @@ export const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Lock body scroll while the mobile sheet is open.
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
+
   return (
-    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-black/80 backdrop-blur-md py-4 border-b border-white/10' : 'bg-transparent py-6'}`}>
-      <div className="max-w-7xl mx-auto px-6 flex justify-center items-center">
-        {/* <motion.a 
+    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled || isOpen ? 'bg-black/90 backdrop-blur-md py-3 border-b border-white/10' : 'bg-gradient-to-b from-black/70 to-transparent py-4 sm:py-6'}`}>
+      <div className="shell flex items-center justify-between gap-4">
+        <a
           href="#home"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="flex items-center gap-2"
+          className="text-base sm:text-lg font-bold tracking-tight text-white shrink-0"
         >
-          <img 
-        src="/assets/logo.png"
-        alt="G Surendar"
-        className="h-10 w-auto object-contain"
-      />
-        </motion.a> */}
+          Surendar<span className="text-[#BFFF0B]">.</span>
+        </a>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-6 lg:gap-8">
           {navLinks.map((link, i) => (
             <motion.a
               key={link.name}
@@ -47,43 +47,56 @@ export const Navbar = () => {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="text-sm font-medium text-white/70 hover:text-[#BFFF0B] transition-colors"
+              className="text-sm font-medium text-white/70 hover:text-[#BFFF0B] transition-colors whitespace-nowrap"
             >
               {link.name}
             </motion.a>
           ))}
-          <motion.button
+          <motion.a
+            href="#contact"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="w-10 h-10 bg-[#BFFF0B] rounded-full flex items-center justify-center"
+            className="bg-[#BFFF0B] text-black text-sm font-bold px-5 py-2.5 rounded-full whitespace-nowrap"
           >
-            <Menu className="w-5 h-5 text-black" />
-          </motion.button>
+            Hire Me
+          </motion.a>
         </div>
 
         {/* Mobile Toggle */}
-        <button className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X /> : <Menu />}
+        <button
+          className="md:hidden text-white p-2 -mr-2"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label={isOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={isOpen}
+        >
+          {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
 
       {/* Mobile Menu */}
       {isOpen && (
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="absolute top-full left-0 w-full bg-black border-b border-white/10 p-6 flex flex-col gap-4 md:hidden"
+          className="absolute top-full left-0 w-full bg-black border-b border-white/10 px-4 sm:px-6 py-6 flex flex-col gap-1 md:hidden max-h-[calc(100svh-4rem)] overflow-y-auto"
         >
           {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href} 
+            <a
+              key={link.name}
+              href={link.href}
               onClick={() => setIsOpen(false)}
-              className="text-lg font-medium text-white/70 hover:text-[#BFFF0B]"
+              className="text-base font-medium text-white/70 hover:text-[#BFFF0B] py-3 border-b border-white/5 last:border-0"
             >
               {link.name}
             </a>
           ))}
+          <a
+            href="#contact"
+            onClick={() => setIsOpen(false)}
+            className="mt-4 bg-[#BFFF0B] text-black text-center font-bold px-6 py-3.5 rounded-full"
+          >
+            Hire Me
+          </a>
         </motion.div>
       )}
     </nav>

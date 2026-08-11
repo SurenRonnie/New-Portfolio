@@ -9,10 +9,43 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Stop any single overflowing child from creating a horizontal scrollbar
+       on small screens (orbit rings, absolutely-positioned service cards, etc).
+       Must be `clip`, NOT `hidden`: `overflow-x: hidden` forces overflow-y to
+       `auto`, which makes <html> a scroll container and silently breaks every
+       `position: sticky` child plus GSAP's ScrollTrigger pinning. */
+    overflow-x: clip;
+    -webkit-text-size-adjust: 100%;
   }
-  
+
   body {
     @apply bg-black text-white antialiased;
+    overflow-x: clip;
+  }
+
+  /* Media never overflows its column. */
+  img,
+  video,
+  svg {
+    max-width: 100%;
+  }
+
+  /* Offset anchor jumps so section headings clear the fixed navbar. */
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+}
+
+@layer components {
+  /* One shared page gutter + max width so every section lines up at every breakpoint. */
+  .shell {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 

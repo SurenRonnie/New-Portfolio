@@ -1,6 +1,6 @@
 'use client';
 import { motion } from 'motion/react';
-import React, { useEffect, useState, memo } from 'react';
+import { useEffect, useRef, useState, memo } from 'react';
 
 const iconComponents = {
   'React.js': { color: '#61DAFB' },
@@ -137,9 +137,32 @@ const GlowingOrbitPath = memo(({ radius, glowColor = 'cyan', animationDelay = 0 
 });
 GlowingOrbitPath.displayName = 'GlowingOrbitPath';
 
+// Widest ring (240) + icon + tooltip headroom. The orbit is laid out at this
+// intrinsic size and then uniformly scaled to whatever width it actually gets.
+const ORBIT_BASE_SIZE = 560;
+
 const OrbitingSkills = () => {
   const [time, setTime] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const wrapperRef = useRef(null);
+  const [scale, setScale] = useState(1);
+
+  // Scale the whole orbit to fit its column instead of letting the fixed-px
+  // rings overflow (and get clipped by the section's overflow-hidden).
+  useEffect(() => {
+    const el = wrapperRef.current;
+    if (!el) return;
+
+    const measure = () => {
+      const width = el.clientWidth;
+      if (width > 0) setScale(Math.min(1, width / ORBIT_BASE_SIZE));
+    };
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (isPaused) return;
@@ -166,12 +189,23 @@ const OrbitingSkills = () => {
   ];
 
   return (
-    <div 
-      className="relative w-full aspect-square max-w-[600px] mx-auto flex items-center justify-center"
+    <div
+      ref={wrapperRef}
+      className="relative mx-auto w-full max-w-[560px]"
+      style={{ height: ORBIT_BASE_SIZE * scale }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="w-16 h-16 md:w-24 md:h-24 bg-gradient-to-br from-gray-800 to-black rounded-full flex items-center justify-center z-10 relative shadow-2xl border border-white/10">
+      <div
+        className="absolute top-0 left-1/2 flex items-center justify-center"
+        style={{
+          width: ORBIT_BASE_SIZE,
+          height: ORBIT_BASE_SIZE,
+          transform: `translateX(-50%) scale(${scale})`,
+          transformOrigin: 'top center',
+        }}
+      >
+      <div className="w-20 h-20 bg-gradient-to-br from-gray-800 to-black rounded-full flex items-center justify-center z-10 relative shadow-2xl border border-white/10">
         <div className="absolute inset-0 rounded-full bg-cyan-500/20 blur-xl animate-pulse"></div>
         <div className="absolute inset-0 rounded-full bg-[#BFFF0B]/10 blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
         <div className="relative z-10">
@@ -201,34 +235,35 @@ const OrbitingSkills = () => {
           />
         );
       })}
+      </div>
     </div>
   );
 };
 
 export const Skills = () => {
   return (
-    <section id="skills" className="py-24 bg-black overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+    <section id="skills" className="py-16 sm:py-20 lg:py-24 bg-black relative z-10 overflow-hidden">
+      <div className="shell">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div>
-            <h2 className="text-[#BFFF0B] font-medium tracking-widest uppercase mb-4 text-sm">My Skills</h2>
-            <h3 className="text-4xl md:text-5xl font-bold text-white mb-8 tracking-tighter">
-              Let's Explore Popular <br />
-              <span className="text-[#BFFF0B]">Skills & Experience</span>
+            <h2 className="text-[#BFFF0B] font-medium tracking-widest uppercase mb-3 sm:mb-4 text-xs sm:text-sm">My Skills</h2>
+            <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 sm:mb-8 tracking-tighter">
+              Let&apos;s Explore Popular <br className="hidden sm:block" />
+              <span className="text-[#BFFF0B]">Skills &amp; Experience</span>
             </h3>
-            <p className="text-white/60 mb-10 leading-relaxed max-w-lg">
+            <p className="text-white/60 mb-8 sm:mb-10 leading-relaxed max-w-lg text-sm sm:text-base">
               I have mastered a wide range of technologies across the full stack, with a primary focus on modern frontend frameworks and efficient backend architectures.
             </p>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-[#BFFF0B] text-black px-8 py-4 rounded-full font-bold"
+              className="bg-[#BFFF0B] text-black px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-bold text-sm sm:text-base"
             >
               Learn More
             </motion.button>
           </div>
 
-          <div className="relative">
+          <div className="relative w-full min-w-0 order-first lg:order-none">
             <OrbitingSkills />
           </div>
         </div>
