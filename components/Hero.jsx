@@ -36,19 +36,16 @@ export const Hero = () => {
   // Parallax for the desktop stats column.
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
 
-  // ─── Word-by-word bright white highlight ─────────────────────────────────
-  // Ranges are fractions of the pin distance so the reveal finishes exactly
-  // when the hero unpins — at every breakpoint, not just desktop.
   const p = pinDistance;
-  const seniorOpacity    = useTransform(scrollY, [p * 0.017, p * 0.10, p * 0.183], [0.15, 0.15, 1]);
-  const frontendOpacity  = useTransform(scrollY, [p * 0.183, p * 0.267, p * 0.35], [0.15, 0.15, 1]);
+  const seniorOpacity = useTransform(scrollY, [p * 0.017, p * 0.10, p * 0.183], [0.15, 0.15, 1]);
+  const frontendOpacity = useTransform(scrollY, [p * 0.183, p * 0.267, p * 0.35], [0.15, 0.15, 1]);
   const developerOpacity = useTransform(scrollY, [p * 0.35, p * 0.433, p * 0.517], [0.15, 0.15, 1]);
-  const descOpacity      = useTransform(scrollY, [p * 0.517, p * 0.60, p * 0.683], [0.15, 0.15, 1]);
+  const descOpacity = useTransform(scrollY, [p * 0.517, p * 0.60, p * 0.683], [0.15, 0.15, 1]);
 
-  const seniorGlow    = useTransform(scrollY, [p * 0.10, p * 0.183],  ["drop-shadow(0 0 0px rgba(255,255,255,0))", "drop-shadow(0 0 24px rgba(255,255,255,0.55))"]);
-  const frontendGlow  = useTransform(scrollY, [p * 0.267, p * 0.35],  ["drop-shadow(0 0 0px rgba(255,255,255,0))", "drop-shadow(0 0 24px rgba(255,255,255,0.55))"]);
+  const seniorGlow = useTransform(scrollY, [p * 0.10, p * 0.183], ["drop-shadow(0 0 0px rgba(255,255,255,0))", "drop-shadow(0 0 24px rgba(255,255,255,0.55))"]);
+  const frontendGlow = useTransform(scrollY, [p * 0.267, p * 0.35], ["drop-shadow(0 0 0px rgba(255,255,255,0))", "drop-shadow(0 0 24px rgba(255,255,255,0.55))"]);
   const developerGlow = useTransform(scrollY, [p * 0.433, p * 0.517], ["drop-shadow(0 0 0px rgba(255,255,255,0))", "drop-shadow(0 0 24px rgba(255,255,255,0.55))"]);
-  const descGlow      = useTransform(scrollY, [p * 0.60, p * 0.683],  ["drop-shadow(0 0 0px rgba(255,255,255,0))", "drop-shadow(0 0 24px rgba(255,255,255,0.55))"]);
+  const descGlow = useTransform(scrollY, [p * 0.60, p * 0.683], ["drop-shadow(0 0 0px rgba(255,255,255,0))", "drop-shadow(0 0 24px rgba(255,255,255,0.55))"]);
 
   const handleDownloadResume = () => {
     const link = document.createElement('a');
@@ -99,7 +96,7 @@ export const Hero = () => {
           if (!videoRef.current) return;
           if (self.direction === 1) {
             if (videoRef.current.paused && !videoRef.current.ended) {
-              videoRef.current.play().catch(() => {});
+              videoRef.current.play().catch(() => { });
             }
             if (scrollTimeout) clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(() => {
