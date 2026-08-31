@@ -2,59 +2,26 @@
 import { motion } from 'motion/react';
 import { Send, MapPin, Mail, Phone, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 import { useState, useRef } from 'react';
-import emailjs from '@emailjs/browser';
+import { validateContact } from '@/lib/contactSchema';
 
-const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+const EMPTY_FORM = {
+  fullName: '',
+  email: '',
+  phone: '',
+  subject: '',
+  message: '',
+  website: '', // honeypot — must stay empty
+};
 
 export const Contact = () => {
   const formRef = useRef(null);
 
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: '',
-  });
+  const [formData, setFormData] = useState(EMPTY_FORM);
 
   const [errors, setErrors] = useState({});
   const [isSending, setIsSending] = useState(false);
   const [successMsg, setSuccessMsg] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
-
-  const validate = () => {
-    const newErrors = {};
-
-    if (!formData.fullName.trim()) {
-      newErrors.fullName = 'Full name is required.';
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email address is required.';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Enter a valid email address.';
-    }
-
-    if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required.';
-    } else if (!/^\+?[0-9\s\-]{7,15}$/.test(formData.phone)) {
-      newErrors.phone = 'Enter a valid phone number.';
-    }
-
-    if (!formData.subject.trim()) {
-      newErrors.subject = 'Subject is required.';
-    }
-
-    if (!formData.message.trim()) {
-      newErrors.message = 'Message is required.';
-    } else if (formData.message.trim().length < 10) {
-      newErrors.message = 'Message must be at least 10 characters.';
-    }
-
-    return newErrors;
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -69,8 +36,10 @@ export const Contact = () => {
     setSuccessMsg('');
     setErrorMsg('');
 
-    const validationErrors = validate();
-    if (Object.keys(validationErrors).length > 0) {
+    // Validate on the client for instant feedback; the API re-validates with
+    // this exact schema, so the server never trusts what arrives.
+    const { success, errors: validationErrors } = validateContact(formData);
+    if (!success) {
       setErrors(validationErrors);
       return;
     }
@@ -78,25 +47,26 @@ export const Contact = () => {
     setIsSending(true);
 
     try {
-      await emailjs.send(
-        SERVICE_ID,
-        TEMPLATE_ID,
-        {
-          from_name: formData.fullName,
-          from_email: formData.email,
-          phone: formData.phone,
-          subject: formData.subject,
-          message: formData.message,
-          to_email: 'gsurendar23@gmail.com',
-        },
-        PUBLIC_KEY
-      );
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
 
-      setSuccessMsg('✅ Message sent successfully! I will get back to you soon.');
-      setFormData({ fullName: '', email: '', phone: '', subject: '', message: '' });
+      const payload = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        // Field-level errors from the server take precedence over a banner.
+        if (payload.errors) setErrors(payload.errors);
+        setErrorMsg(payload.message || 'Failed to send message. Please try again later.');
+        return;
+      }
+
+      setSuccessMsg(payload.message || 'Message sent successfully! I will get back to you soon.');
+      setFormData(EMPTY_FORM);
       setErrors({});
-    } catch (error) {
-      setErrorMsg('❌ Failed to send message. Please try again later.');
+    } catch {
+      setErrorMsg('Network error. Check your connection and try again.');
     } finally {
       setIsSending(false);
     }
@@ -163,7 +133,19 @@ export const Contact = () => {
           </div>
 
           <div className="bg-white/5 border border-white/10 p-5 sm:p-8 lg:p-10 rounded-3xl sm:rounded-[40px]">
-            <form ref={formRef} className="space-y-6" noValidate>
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-6" noValidate>
+              {/* Honeypot: hidden from people, irresistible to bots. A filled
+                  value fails server validation and the request is rejected. */}
+              <input
+                type="text"
+                name="website"
+                value={formData.website}
+                onChange={handleChange}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="absolute left-[-9999px] h-0 w-0 opacity-0"
+              />
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-5 sm:gap-6">
                 <div className="space-y-2">
                   <label className="text-xs font-bold text-white/40 uppercase tracking-widest">Full Name</label>
@@ -244,19 +226,18 @@ export const Contact = () => {
               </div>
 
               {successMsg && (
-                <div className="bg-green-500/10 border border-green-500/30 rounded-2xl px-6 py-4 text-green-400 text-sm">
+                <div role="status" aria-live="polite" className="bg-green-500/10 border border-green-500/30 rounded-2xl px-6 py-4 text-green-400 text-sm">
                   {successMsg}
                 </div>
               )}
               {errorMsg && (
-                <div className="bg-red-500/10 border border-red-500/30 rounded-2xl px-6 py-4 text-red-400 text-sm">
+                <div role="alert" aria-live="assertive" className="bg-red-500/10 border border-red-500/30 rounded-2xl px-6 py-4 text-red-400 text-sm">
                   {errorMsg}
                 </div>
               )}
 
               <motion.button
-                type="button"
-                onClick={handleSubmit}
+                type="submit"
                 disabled={isSending}
                 whileHover={{ scale: isSending ? 1 : 1.02 }}
                 whileTap={{ scale: isSending ? 1 : 0.98 }}

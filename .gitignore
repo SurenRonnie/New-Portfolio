@@ -1,8 +1,26 @@
+# dependencies
 node_modules
+.pnp
+.pnp.js
+
+# next.js build output
+.next
+out
 build
 dist
+
+# testing
 coverage
+
+# env files — never commit real secrets.
+# The negation keeps the placeholder template tracked.
+.env
+.env.*
+!.env.example
+
+# misc
 .DS_Store
 *.log
-.env*
-.env
+.vercel
+*.tsbuildinfo
+next-env.d.ts

@@ -12,6 +12,7 @@ import { Contact } from '../components/Contact';
 import { Footer } from '../components/Footer';
 import { ParallaxBackground } from '../components/ParallaxBackground';
 import { PortfolioGallerySection } from '../components/PortfolioGallerySection';
+import { ChatWidget } from '../components/ChatWidget';
 
 
 export default function Home() {
@@ -34,6 +35,7 @@ export default function Home() {
         {/* <Blog /> */}
       </main>
       <Footer />
+      <ChatWidget />
     </div>
   );
 }

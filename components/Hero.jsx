@@ -1,6 +1,6 @@
 'use client';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { ArrowRight, Download, Volume2, VolumeX } from 'lucide-react';
+import { ArrowRight, Download } from 'lucide-react';
 import { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
@@ -28,7 +28,9 @@ export const Hero = () => {
   const sectionRef = useRef(null);
   const videoRef = useRef(null);
   const videoContainerRef = useRef(null);
-  const [isMuted, setIsMuted] = useState(true);
+  // Video stays muted: browsers block autoplay with sound, and the
+  // on-screen mute toggle has been removed.
+  const [isMuted] = useState(true);
   const [pinDistance, setPinDistance] = useState(3000);
 
   const { scrollY } = useScroll();
@@ -54,13 +56,6 @@ export const Hero = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  };
-
-  const toggleMute = () => {
-    setIsMuted(prev => {
-      if (videoRef.current) videoRef.current.muted = !prev;
-      return !prev;
-    });
   };
 
   // Track breakpoint so the pin distance and the text ramps stay in sync.
@@ -154,17 +149,6 @@ export const Hero = () => {
         {/* No scrim — the video plays at full brightness. Hero copy stays
             legible via text-shadow instead of a tint over the footage. */}
       </div>
-
-      {/* Mute toggle — fixed so it stays reachable while the video plays. */}
-      <button
-        onClick={toggleMute}
-        aria-label={isMuted ? 'Unmute intro video' : 'Mute intro video'}
-        className="fixed bottom-5 right-4 sm:bottom-8 sm:right-6 z-50 bg-white/10 hover:bg-white/20 backdrop-blur-md p-3 sm:p-4 rounded-full border border-white/20 transition-all cursor-pointer shadow-2xl"
-      >
-        {isMuted
-          ? <VolumeX className="text-white w-5 h-5 sm:w-6 sm:h-6" />
-          : <Volume2 className="text-[#BFFF0B] w-5 h-5 sm:w-6 sm:h-6" />}
-      </button>
 
       <section
         id="home"

@@ -16,12 +16,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <script 
+        {/* <script 
           async 
           src="https://3g50nf88-4000.inc1.devtunnels.ms/tracker.js"
           data-tracking-id="8fc1daa9-14e9-4cb8-9486-44b84e760c09"
           data-endpoint="https://3g50nf88-4000.inc1.devtunnels.ms" 
-        />
+        /> */}
       </head>
       <body>
         <div id="root">{children}</div>

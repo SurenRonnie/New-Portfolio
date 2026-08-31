@@ -35,7 +35,7 @@ export const Navbar = () => {
           href="#home"
           className="text-base sm:text-lg font-bold tracking-tight text-white shrink-0"
         >
-          Surendar<span className="text-[#BFFF0B]">.</span>
+          SURENDAR<span className="text-[#BFFF0B]">.G</span>
         </a>
 
         {/* Desktop Menu */}
